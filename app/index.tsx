@@ -64,11 +64,9 @@ function Index() {
             <Image
               style={{ width: "100%", height: "100%", borderRadius: 0, position: "absolute", }}
               source={{
-                uri: item.qImage,
               }}
             />
             <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
-              {item.question}
             </Text>
           </View>
         )}
