@@ -64,9 +64,21 @@ function Index() {
             <Image
               style={{ width: "100%", height: "100%", borderRadius: 0, position: "absolute", }}
               source={{
+                uri: Content[index].qImage,
               }}
             />
+
+            {/* templ part */}
             <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
+            {index}
+            </Text>
+            {/* temp part */}
+
+            <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
+              {Content[index].question}
+            </Text>
+            <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
+              {Content[index].answer}
             </Text>
           </View>
         )}
