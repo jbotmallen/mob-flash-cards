@@ -31,6 +31,13 @@ function Index() {
 
   return (
     <View style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-evenly", padding: 24, gap: 20 }}>
+      
+      <Text style={{ fontSize: 24, textAlign: "center", fontWeight: 400 }}>
+        Learn more about the
+        <Text style={{ fontWeight: 800 }}> capital cities </Text>
+        of the world!
+      </Text>
+      
       <Carousel
         ref={carouselRef}
         loop={false}
@@ -66,12 +73,11 @@ function Index() {
           </View>
         )}
       />
-      <Text style={{ fontSize: 24, textAlign: "center", fontWeight: 400 }}>
-        Learn more about the
-        <Text style={{ fontWeight: 800 }}> capital cities </Text>
-        of the world!
-      </Text>
+
+      
       <View style={{ height: "10%", display: "flex", flexDirection: "row", gap: 10, marginTop: 10, justifyContent: "space-between" }}>
+        
+        {/* THE LEFT BUTTON */}
         <Pressable
           style={index === 0 ? {
             width: "50%",
@@ -92,6 +98,8 @@ function Index() {
         >
           <Feather name="chevrons-left" size={40} color="white" />
         </Pressable>
+
+        {/* THE RIGHT BUTTON */}
         <Pressable
           disabled={index === Content.length - 1}
           style={Content.length - 1 === index ?
