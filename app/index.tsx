@@ -11,13 +11,10 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-
-function wait(ms: number, callback: () => void): void {
-  setTimeout(callback, ms);
-}
+import { useWait } from '@/hooks/useWait';
 
 function Index() {
-  
+
   // =======================================================================
   // CAROUSEL
   // =======================================================================
@@ -30,15 +27,15 @@ function Index() {
 
   const handlePrevious = () => {
     if (index > 0) {
-      if(rotate.value){
+      if (rotate.value) {
         rotate.value = 0
-        wait(rotate_duration + 200, () => {
+        useWait(rotate_duration + 200, () => {
           setIndex((prev) => prev - 1);
           if (carouselRef.current) {
             carouselRef.current.scrollTo({ index: index - 1, animated: true });
           }
         });
-      }else{
+      } else {
         setIndex((prev) => prev - 1);
         if (carouselRef.current) {
           carouselRef.current.scrollTo({ index: index - 1, animated: true });
@@ -49,15 +46,15 @@ function Index() {
 
   const handleNext = () => {
     if (index < Content.length - 1) {
-      if(rotate.value){
+      if (rotate.value) {
         rotate.value = 0
-        wait(rotate_duration + 200, () => {
+        useWait(rotate_duration + 200, () => {
           setIndex((prev) => prev + 1);
           if (carouselRef.current) {
             carouselRef.current.scrollTo({ index: index + 1, animated: true });
           }
         });
-      }else{
+      } else {
         setIndex((prev) => prev + 1);
         if (carouselRef.current) {
           carouselRef.current.scrollTo({ index: index + 1, animated: true });
@@ -70,7 +67,7 @@ function Index() {
   // FLIPPING
   // =======================================================================
 
-  const rotate = useSharedValue(0);
+  const rotate = useSharedValue<number>(0);
   const rotate_duration = 500
 
   const frontAnimatedStyle = useAnimatedStyle(() => {
@@ -95,13 +92,9 @@ function Index() {
     };
   });
 
- const handleFlip = () => {
-    console.log("handleFlip be like")
+  const handleFlip = () => {
     rotate.value = rotate.value ? 0 : 1;
   };
-
-  const wWidth = Dimensions.get("window").width;
-  const wHeight = Dimensions.get("window").height;
 
   const styles = StyleSheet.create({
     container: {
@@ -118,8 +111,8 @@ function Index() {
     cardFrontBody: {
       justifyContent: "center",
       alignItems: "center",
-      width: wWidth,
-      height: wHeight,
+      width: width,
+      height: height,
       borderRadius: 10,
     },
     cardArea: {
@@ -134,8 +127,8 @@ function Index() {
     cardBackBody: {
       justifyContent: "center",
       alignItems: "center",
-      width: wWidth,
-      height: wHeight,
+      width: width,
+      height: height,
       borderRadius: 10,
     }
   });
@@ -146,13 +139,13 @@ function Index() {
 
   return (
     <View style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-evenly", padding: 24, gap: 20 }}>
-      
+
       <Text style={{ fontSize: 24, textAlign: "center", fontWeight: 400 }}>
         Learn more about the
         <Text style={{ fontWeight: 800 }}> capital cities </Text>
         of the world!
       </Text>
-      
+
       <Carousel
         ref={carouselRef}
         loop={false}
@@ -167,7 +160,6 @@ function Index() {
             style={[styles.container, {
               flex: 1,
               width: "100%",
-              borderWidth: 1,
               justifyContent: 'center',
               alignItems: 'center',
               borderRadius: 10,
@@ -176,7 +168,7 @@ function Index() {
               position: 'relative',
             }]}
           >
-            
+
             <Pressable
               onPress={() => handleFlip()}
               style={[styles.cardFrontBody, styles.card]}>
@@ -184,27 +176,27 @@ function Index() {
               <Animated.View
                 style={[styles.cardFrontBody, styles.card, frontAnimatedStyle]}>
                 <Image
-                  style={{ width: "100%", height: "100%", borderRadius: 0, position: "absolute", }}
+                  style={{ width: "100%", height: "100%", borderRadius: 10, position: "absolute", }}
                   source={{
-                    uri: Content[index].qImage,
+                    uri: item.qImage,
                   }}
                 />
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
-                  {Content[index].question}
+                  {item.question}
                 </Text>
               </Animated.View>
 
               <Animated.View
                 style={[styles.cardBackBody, styles.card, backAnimatedStyle]}>
-                  <Image
-                    style={{ width: "100%", height: "100%", borderRadius: 0, position: "absolute", }}
-                    source={{
-                      uri: Content[index].qImage,
-                    }}
-                  />
-                  <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
-                    {Content[index].answer}
-                  </Text>
+                <Image
+                  style={{ width: "100%", height: "100%", borderRadius: 10, position: "absolute", }}
+                  source={{
+                    uri: item.aImage,
+                  }}
+                />
+                <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
+                  {item.answer}
+                </Text>
               </Animated.View>
 
             </Pressable>
