@@ -21,7 +21,7 @@ function Index() {
 
   const [index, setIndex] = useState<number>(0);
   const width = Dimensions.get('window').width - 20;
-  const height = Dimensions.get('window').height - 350;
+  const height = Dimensions.get('window').height - 300;
 
   const carouselRef = useRef<ICarouselInstance>(null);
 
@@ -69,6 +69,7 @@ function Index() {
 
   const rotate = useSharedValue<number>(0);
   const rotate_duration = 500
+  const blur_value = 3
 
   const frontAnimatedStyle = useAnimatedStyle(() => {
     const rotateValue = interpolate(rotate.value, [0, 1], [0, 180]);
@@ -180,6 +181,8 @@ function Index() {
                   source={{
                     uri: item.qImage,
                   }}
+                  resizeMode="cover"
+                  blurRadius={blur_value}
                 />
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
                   {item.question}
@@ -193,6 +196,8 @@ function Index() {
                   source={{
                     uri: item.aImage,
                   }}
+                  resizeMode="cover"
+                  blurRadius={blur_value}
                 />
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
                   {item.answer}
