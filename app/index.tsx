@@ -176,26 +176,38 @@ function Index() {
               <Animated.View
                 style={[styles.cardFrontBody, styles.card, frontAnimatedStyle]}>
                 <Image
-                  style={{ width: "100%", height: "100%", borderRadius: 10, position: "absolute", }}
-                  source={{
-                    uri: item.qImage,
+                  style={{ 
+                    width: "100%", 
+                    height: "100%", 
+                    borderRadius: 10, 
+                    position: "absolute",
                   }}
+                  source={{
+                    uri: Content[index].qImage,
+                  }}
+                  resizeMode="cover"
                 />
+                
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
-                  {item.question}
+                  {Content[index].question}
                 </Text>
               </Animated.View>
 
               <Animated.View
                 style={[styles.cardBackBody, styles.card, backAnimatedStyle]}>
                 <Image
-                  style={{ width: "100%", height: "100%", borderRadius: 10, position: "absolute", }}
+                  style={{ 
+                    width: "100%", 
+                    height: "100%", 
+                    borderRadius: 10, 
+                    position: "absolute", }}
                   source={{
-                    uri: item.aImage,
+                    uri: Content[index].aImage,
                   }}
+                  resizeMode="cover"
                 />
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
-                  {item.answer}
+                  {Content[index].answer}
                 </Text>
               </Animated.View>
 
