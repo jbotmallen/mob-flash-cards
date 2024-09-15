@@ -21,7 +21,7 @@ function Index() {
 
   const [index, setIndex] = useState<number>(0);
   const width = Dimensions.get('window').width - 20;
-  const height = Dimensions.get('window').height - 350;
+  const height = Dimensions.get('window').height - 300;
 
   const carouselRef = useRef<ICarouselInstance>(null);
 
