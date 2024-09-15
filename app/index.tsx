@@ -69,6 +69,7 @@ function Index() {
 
   const rotate = useSharedValue<number>(0);
   const rotate_duration = 500
+  const blur_value = 3
 
   const frontAnimatedStyle = useAnimatedStyle(() => {
     const rotateValue = interpolate(rotate.value, [0, 1], [0, 180]);
@@ -186,6 +187,7 @@ function Index() {
                     uri: Content[index].qImage,
                   }}
                   resizeMode="cover"
+                  blurRadius={blur_value}
                 />
                 
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
@@ -205,6 +207,7 @@ function Index() {
                     uri: Content[index].aImage,
                   }}
                   resizeMode="cover"
+                  blurRadius={blur_value}
                 />
                 <Text style={{ textAlign: 'center', fontSize: 30, fontWeight: '800', padding: 10, backgroundColor: "white", borderRadius: 20 }}>
                   {Content[index].answer}
