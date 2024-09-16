@@ -11,4 +11,4 @@
       <li>[Shuffle card elements for a surprise question.]</li>
    </ul>
 <hr/>
-## Link to documentation: <a href="https://drive.google.com/drive/folders/1B_uCyCHX9on8R-GkgUkizznlYgUYsn_I?usp=sharing">Click Me</a>
+## Link to documentation: <a target="_blank" href="https://drive.google.com/drive/folders/1B_uCyCHX9on8R-GkgUkizznlYgUYsn_I?usp=sharing">Click Me</a>
