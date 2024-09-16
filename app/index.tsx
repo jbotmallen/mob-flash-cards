@@ -1,6 +1,6 @@
 import { Content } from '@/constants/Content';
 import { useRef, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ToastAndroid } from 'react-native';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import React from "react";
 import { height, width } from '@/constants/Dimensions';
@@ -17,7 +17,6 @@ function Index() {
   return (
     <View style={styles.box}>
       <DottedBackground />
-      <Header />
       <Carousel
         ref={carouselRef}
         loop={false}
@@ -25,13 +24,20 @@ function Index() {
         height={height}
         autoPlay={autoPlay}
         data={Content}
-        autoPlayInterval={5000}
-        scrollAnimationDuration={1000}
-        onSnapToItem={(index) => setIndex(index)}
+        autoPlayInterval={3000}
+        scrollAnimationDuration={500}
+        onSnapToItem={(index) => {
+          if (autoPlay && index === Content.length - 1) {
+            setIndex(0);
+          } else {
+            setIndex(index);
+          }
+        }}
         renderItem={({ item }) => (
           <Cards item={item} />
         )}
       />
+      <Header />
       <Text style={{ fontWeight: 600, fontSize: 24 }}>{index + 1} / {Content.length}</Text>
       <Buttons
         autoPlay={autoPlay}
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     padding: 24,
-    gap: 10
+    gap: 24,
   },
 });
 

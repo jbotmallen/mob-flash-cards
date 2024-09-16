@@ -2,7 +2,7 @@ import { Content } from '@/constants/Content'
 import { useWait } from '@/hooks/useWait'
 import { Feather } from '@expo/vector-icons'
 import React from 'react'
-import { Pressable, View, StyleSheet, Text } from 'react-native'
+import { Pressable, View, StyleSheet, ToastAndroid } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { ICarouselInstance } from 'react-native-reanimated-carousel'
 
@@ -19,6 +19,7 @@ function getRandomNumberInRange(min_inclusive: number, max_inclusive: number): n
 }
 
 const Buttons = ({ index, setIndex, autoPlay, setAutoPlay, carouselRef }: ButtonsProps) => {
+    const toast = (message: string) => ToastAndroid.show(message, ToastAndroid.SHORT);
     const rotate = useSharedValue<number>(0);
     const rotate_duration: number = 500
 
@@ -60,26 +61,29 @@ const Buttons = ({ index, setIndex, autoPlay, setAutoPlay, carouselRef }: Button
         }
     };
 
-    const handleShuffle = () =>{
-        let random_index = getRandomNumberInRange(0, Content.length-1)
-        while (random_index === index){
-            random_index = getRandomNumberInRange(0, Content.length-1)
+    const handleShuffle = () => {
+        let random_index = getRandomNumberInRange(0, Content.length - 1)
+        while (random_index === index) {
+            random_index = getRandomNumberInRange(0, Content.length - 1)
         }
 
-        console.log(index + " -> " + random_index)
-
-        setIndex((prev) => random_index);
+        setIndex(random_index);
         if (carouselRef.current) {
-            carouselRef.current.scrollTo({ index:random_index, animated: true });
+            carouselRef.current.scrollTo({ index: random_index, animated: true });
         }
+
+        toast("Shuffled");
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.box}>
-                <Pressable 
-                    style={[styles.button, autoPlay ? { backgroundColor: "black" } : { backgroundColor: "green" }]} 
-                    onPress={() => setAutoPlay(!autoPlay)}>
+                <Pressable
+                    style={[styles.button, autoPlay ? { backgroundColor: "black" } : { backgroundColor: "green" }]}
+                    onPress={() => {
+                        setAutoPlay(!autoPlay);
+                        autoPlay ? toast("AutoPlay Paused") : toast("AutoPlay Started");
+                    }}>
                     <Feather name={autoPlay ? "pause-circle" : "airplay"} size={40} color="white" />
                 </Pressable>
                 <Pressable
@@ -95,8 +99,8 @@ const Buttons = ({ index, setIndex, autoPlay, setAutoPlay, carouselRef }: Button
                 >
                     <Feather name="chevrons-right" size={40} color="white" />
                 </Pressable>
-                <Pressable 
-                    style={[styles.button, { backgroundColor: "brown" }]} 
+                <Pressable
+                    style={[styles.button, { backgroundColor: "brown" }]}
                     onPress={handleShuffle}>
                     <Feather name="shuffle" size={40} color="white" />
                 </Pressable>
@@ -115,7 +119,7 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     box: {
-        height: "100%", display: "flex", flexDirection: "row", gap: 5, justifyContent: "space-between", paddingHorizontal: 30
+        height: "100%", display: "flex", flexDirection: "row", gap: 10, justifyContent: "space-between"
     },
     button: { height: "100%", width: 75, padding: 10, backgroundColor: "blue", borderRadius: 10, alignItems: "center", justifyContent: "center" },
     disabled_button: { height: "100%", width: 75, padding: 10, backgroundColor: "gray", borderRadius: 10, alignItems: "center", justifyContent: "center" }

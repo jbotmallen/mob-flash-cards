@@ -1,9 +1,9 @@
 import { height, width } from '@/constants/Dimensions'
 import React from 'react'
-import { Text, Image, StyleSheet, ViewStyle } from 'react-native'
-import Animated, { interpolate, SharedValue, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { Text, Image, StyleSheet } from 'react-native'
+import Animated, { interpolate, SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
-const BLUR_VALUE = 4
+const BLUR_VALUE = 1;
 
 type ImagesProps = {
     item: {
