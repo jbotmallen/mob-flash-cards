@@ -3,6 +3,8 @@ import React from 'react'
 import { Text, Image, StyleSheet, ViewStyle } from 'react-native'
 import Animated, { interpolate, SharedValue, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
+const BLUR_VALUE = 4
+
 type ImagesProps = {
     item: {
         question: string
@@ -47,6 +49,7 @@ const Images = ({ item, usedFor = "front", rotate }: ImagesProps) => {
                 source={{
                     uri: usedFor === "front" ? item.qImage : item.aImage,
                 }}
+                blurRadius={BLUR_VALUE}
             />
             <Text style={styles.cardText}>
                 {usedFor === "front" ? item.question : item.answer}
