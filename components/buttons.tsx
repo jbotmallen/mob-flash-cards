@@ -14,6 +14,10 @@ type ButtonsProps = {
     carouselRef: React.RefObject<ICarouselInstance>
 }
 
+function getRandomNumberInRange(min_inclusive: number, max_inclusive: number): number {
+    return Math.floor(Math.random() * (max_inclusive - min_inclusive + 1)) + min_inclusive;
+}
+
 const Buttons = ({ index, setIndex, autoPlay, setAutoPlay, carouselRef }: ButtonsProps) => {
     const rotate = useSharedValue<number>(0);
     const rotate_duration: number = 500
@@ -56,10 +60,26 @@ const Buttons = ({ index, setIndex, autoPlay, setAutoPlay, carouselRef }: Button
         }
     };
 
+    const handleShuffle = () =>{
+        let random_index = getRandomNumberInRange(0, Content.length-1)
+        while (random_index === index){
+            random_index = getRandomNumberInRange(0, Content.length-1)
+        }
+
+        console.log(index + " -> " + random_index)
+
+        setIndex((prev) => random_index);
+        if (carouselRef.current) {
+            carouselRef.current.scrollTo({ index:random_index, animated: true });
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.box}>
-                <Pressable style={[styles.button, autoPlay ? { backgroundColor: "black" } : { backgroundColor: "green" }]} onPress={() => setAutoPlay(!autoPlay)}>
+                <Pressable 
+                    style={[styles.button, autoPlay ? { backgroundColor: "black" } : { backgroundColor: "green" }]} 
+                    onPress={() => setAutoPlay(!autoPlay)}>
                     <Feather name={autoPlay ? "pause-circle" : "airplay"} size={40} color="white" />
                 </Pressable>
                 <Pressable
@@ -75,7 +95,9 @@ const Buttons = ({ index, setIndex, autoPlay, setAutoPlay, carouselRef }: Button
                 >
                     <Feather name="chevrons-right" size={40} color="white" />
                 </Pressable>
-                <Pressable style={[styles.button, { backgroundColor: "brown" }]} onPress={() => rotate.value = rotate.value ? 0 : 1}>
+                <Pressable 
+                    style={[styles.button, { backgroundColor: "brown" }]} 
+                    onPress={handleShuffle}>
                     <Feather name="shuffle" size={40} color="white" />
                 </Pressable>
             </View>
